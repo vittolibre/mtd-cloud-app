@@ -1,5 +1,6 @@
 package mtd.cloud.application;
 
+import cloud.kubewrapper.configuration.KubeClientWrapperConfiguration;
 import mtd.cloud.transport.configuration.TransportConfiguration;
 import mtdcloud.configuration.CoreConfiguration;
 import org.springframework.boot.SpringApplication;
@@ -10,7 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@Import({TransportConfiguration.class, CoreConfiguration.class})
+@Import({TransportConfiguration.class, CoreConfiguration.class, KubeClientWrapperConfiguration.class})
 @PropertySource("classpath:/application.properties")
 public class Application {
 

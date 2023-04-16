@@ -14,7 +14,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 public class TransportConfiguration implements WebSocketMessageBrokerConfigurer {
 
-    @Bean(initMethod="subscribe")
+    //@Bean(initMethod="subscribe")
     MqttSubscriber MqttSubscriber(){
         return new MqttSubscriber();
     }
