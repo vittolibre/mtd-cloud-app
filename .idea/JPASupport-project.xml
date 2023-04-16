@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoGeneratorSettingsState">
+    <option name="generateClassComment" value="false" />
+    <option name="generateFieldComment" value="false" />
+    <option name="generateMethodComment" value="false" />
+    <option name="ignoredFields">
+      <set>
+        <option value="" />
+      </set>
+    </option>
+    <option name="moduleName" value="core" />
+    <option name="moduleNameToSettings">
+      <map>
+        <entry key="core">
+          <value>
+            <ModuleSettings>
+              <option name="controllerPackageName" value="mtdcloud.controller" />
+              <option name="controllerParentDirectory" value="$PROJECT_DIR$/core/src/main/java" />
+              <option name="dtoPackageName" value="mtdcloud.dto" />
+              <option name="dtoParentDirectory" value="$PROJECT_DIR$/core/src/main/java" />
+              <option name="entityPackageName" value="mtdcloud.entity" />
+              <option name="entityParentDirectory" value="$PROJECT_DIR$/core/src/main/java" />
+              <option name="generateDTO" value="true" />
+              <option name="generateRepository" value="false" />
+              <option name="generateVO" value="true" />
+              <option name="mapperXmlParentDirectory" value="C:\Users\Vittorio\IdeaProjects\mtd-cloud-server\core\src\main\resources" />
+              <option name="repositoryPackageName" value="mtdcloud.repository" />
+              <option name="repositoryParentDirectory" value="$PROJECT_DIR$/core/src/main/java" />
+              <option name="servicePackageName" value="mtdcloud.service" />
+              <option name="serviceParentDirectory" value="$PROJECT_DIR$/core/src/main/java" />
+              <option name="voPackageName" value="mtdcloud.vo" />
+              <option name="voParentDirectory" value="$PROJECT_DIR$/core/src/main/java" />
+            </ModuleSettings>
+          </value>
+        </entry>
+        <entry key="mtd-cloud-server">
+          <value>
+            <ModuleSettings />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="serializable" value="false" />
+  </component>
+  <component name="DatabaseSettingsState">
+    <option name="language" value="it-IT" />
+  </component>
+</project>
