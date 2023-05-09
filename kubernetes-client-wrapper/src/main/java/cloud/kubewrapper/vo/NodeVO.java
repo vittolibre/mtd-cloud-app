@@ -1,8 +1,8 @@
 package cloud.kubewrapper.vo;
 
 import lombok.Data;
-import org.jetbrains.annotations.NotNull;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
@@ -10,12 +10,15 @@ import java.io.Serializable;
 public class NodeVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @NotNull
+    @NotNull(message = "hostname can not null")
     private String hostname;
 
-    @NotNull
+    @NotNull(message = "ipAddress can not null")
     private String ipAddress;
 
-    private String label;
+    @NotNull(message = "id can not null")
+    private Long id;
+
+    private String role;
 
 }

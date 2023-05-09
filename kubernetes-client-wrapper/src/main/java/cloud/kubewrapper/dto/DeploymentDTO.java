@@ -10,6 +10,8 @@ public class DeploymentDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private String name;
 
-    private Long strategy;
+    private String strategy;
+
+    private String namespace;
 
 }

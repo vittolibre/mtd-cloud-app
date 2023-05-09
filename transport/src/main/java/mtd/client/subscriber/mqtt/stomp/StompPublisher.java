@@ -18,7 +18,7 @@ public class StompPublisher {
     @Autowired
     private TimeseriesRepository timeseriesRepository;
 
-    @PostConstruct
+    //@PostConstruct
     public void publish() {
 
         Thread t = new Thread(() -> {

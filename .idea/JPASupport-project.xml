@@ -9,7 +9,7 @@
         <option value="" />
       </set>
     </option>
-    <option name="moduleName" value="core" />
+    <option name="moduleName" value="kubernetes-client-wrapper" />
     <option name="moduleNameToSettings">
       <map>
         <entry key="core">
@@ -34,6 +34,27 @@
             </ModuleSettings>
           </value>
         </entry>
+        <entry key="kubernetes-client-wrapper">
+          <value>
+            <ModuleSettings>
+              <option name="controllerPackageName" value="cloud.kubewrapper.service" />
+              <option name="controllerParentDirectory" value="$PROJECT_DIR$/kubernetes-client-wrapper/src/main/java" />
+              <option name="dtoPackageName" value="cloud.kubewrapper.dto" />
+              <option name="dtoParentDirectory" value="$PROJECT_DIR$/kubernetes-client-wrapper/src/main/java" />
+              <option name="entityPackageName" value="cloud.kubewrapper.entity" />
+              <option name="entityParentDirectory" value="$PROJECT_DIR$/kubernetes-client-wrapper/src/main/java" />
+              <option name="generateEntity" value="false" />
+              <option name="generateService" value="true" />
+              <option name="mapperXmlParentDirectory" value="C:\Users\Vittorio\IdeaProjects\mtd-cloud-server\kubernetes-client-wrapper\src\main\resources" />
+              <option name="repositoryPackageName" value="cloud.kubewrapper.repository" />
+              <option name="repositoryParentDirectory" value="$PROJECT_DIR$/kubernetes-client-wrapper/src/main/java" />
+              <option name="servicePackageName" value="cloud.kubewrapper.service" />
+              <option name="serviceParentDirectory" value="$PROJECT_DIR$/kubernetes-client-wrapper/src/main/java" />
+              <option name="voPackageName" value="cloud.kubewrapper.vo" />
+              <option name="voParentDirectory" value="$PROJECT_DIR$/kubernetes-client-wrapper/src/main/java" />
+            </ModuleSettings>
+          </value>
+        </entry>
         <entry key="mtd-cloud-server">
           <value>
             <ModuleSettings />
@@ -41,7 +62,7 @@
         </entry>
       </map>
     </option>
-    <option name="serializable" value="false" />
+    <option name="removeEntityPrefix" value="" />
   </component>
   <component name="DatabaseSettingsState">
     <option name="language" value="it-IT" />

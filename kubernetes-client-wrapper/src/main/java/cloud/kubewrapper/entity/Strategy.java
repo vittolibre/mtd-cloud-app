@@ -22,7 +22,7 @@ public class Strategy implements Serializable {
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
 
-    @Column(name = "type", nullable = false)
-    private String type;
+    @Column(name = "scheduling", nullable = false)
+    private String scheduling;
 
 }

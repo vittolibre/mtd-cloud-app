@@ -1,8 +1,8 @@
 package cloud.kubewrapper.vo;
 
 import lombok.Data;
-import org.jetbrains.annotations.NotNull;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
@@ -10,13 +10,13 @@ import java.io.Serializable;
 public class StrategyVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @NotNull
+    @NotNull(message = "name can not null")
     private String name;
 
-    @NotNull
+    @NotNull(message = "enabled can not null")
     private Boolean enabled;
 
-    @NotNull
-    private String type;
+    @NotNull(message = "scheduling can not null")
+    private String scheduling;
 
 }

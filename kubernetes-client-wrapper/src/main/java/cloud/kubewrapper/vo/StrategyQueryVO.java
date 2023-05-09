@@ -13,6 +13,6 @@ public class StrategyQueryVO implements Serializable {
 
     private Boolean enabled;
 
-    private String type;
+    private String scheduling;
 
 }

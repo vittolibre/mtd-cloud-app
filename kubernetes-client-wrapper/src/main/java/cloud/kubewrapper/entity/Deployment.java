@@ -20,6 +20,9 @@ public class Deployment implements Serializable {
     private String name;
 
     @Column(name = "strategy", nullable = false)
-    private Long strategy;
+    private String strategy;
+
+    @Column(name = "namespace")
+    private String namespace;
 
 }

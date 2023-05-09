@@ -12,6 +12,6 @@ public class StrategyDTO implements Serializable {
 
     private Boolean enabled;
 
-    private String type;
+    private String scheduling;
 
 }

@@ -1,8 +1,8 @@
 package cloud.kubewrapper.vo;
 
 import lombok.Data;
-import org.jetbrains.annotations.NotNull;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
@@ -10,10 +10,12 @@ import java.io.Serializable;
 public class DeploymentVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @NotNull
+    @NotNull(message = "name can not null")
     private String name;
 
-    @NotNull
-    private Long strategy;
+    @NotNull(message = "strategy can not null")
+    private String strategy;
+
+    private String namespace;
 
 }

@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class DeploymentUpdateVO extends DeploymentVO implements Serializable {
+public class NodeLabelUpdateVO extends NodeLabelVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
 }

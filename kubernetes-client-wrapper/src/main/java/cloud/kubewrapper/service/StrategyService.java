@@ -1,7 +1,11 @@
 package cloud.kubewrapper.service;
 
 import cloud.kubewrapper.entity.Deployment;
+import cloud.kubewrapper.entity.Node;
+import cloud.kubewrapper.entity.NodeLabel;
 import cloud.kubewrapper.repository.DeploymentRepository;
+import cloud.kubewrapper.repository.NodeLabelRepository;
+import cloud.kubewrapper.repository.NodeRepository;
 import io.kubernetes.client.custom.V1Patch;
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.Configuration;
@@ -14,15 +18,24 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class StrategyService {
 
     @Autowired
     private DeploymentRepository deploymentRepository;
+    @Autowired
+    private NodeRepository nodeRepository;
+    @Autowired
+    private NodeLabelRepository nodeLabelRepository;
     @SneakyThrows
     @PostConstruct
     public void mtdStartup() {
@@ -30,7 +43,6 @@ public class StrategyService {
         ApiClient client = Config.defaultClient();
         Configuration.setDefaultApiClient(client);
         AppsV1Api appsV1Api = new AppsV1Api(client);
-        String namespace = "default";
 
         List<Deployment> deployments = deploymentRepository.findAll();
 
@@ -38,8 +50,7 @@ public class StrategyService {
 
             for (Deployment deployment : deployments) {
                 V1Deployment runningDeployment =
-                        appsV1Api.readNamespacedDeployment(deployment.getName(), namespace, null);
-
+                        appsV1Api.readNamespacedDeployment(deployment.getName(), deployment.getNamespace(), null);
 
                 // Explicitly set "restartedAt" annotation with current date/time to trigger rollout when patch
                 // is applied
@@ -49,6 +60,22 @@ public class StrategyService {
                         .getMetadata()
                         .putAnnotationsItem("kubectl.kubernetes.io/restartedAt", LocalDateTime.now().toString());
 
+                Map<String, String> map = runningDeployment.getSpec().getTemplate().getSpec().getNodeSelector();
+
+                Node node = nodeRepository.findRandomNode();
+                NodeLabel nameLabel  = nodeLabelRepository.findByIdNodeAndKey(node.getId(), "name");
+
+                if(map == null) {
+                    map = new HashMap<>();
+                }
+
+                map.remove("name");
+                map.put("name", nameLabel.getValue());
+                runningDeployment.getSpec()
+                        .getTemplate()
+                        .getSpec()
+                        .setNodeSelector(map);
+
                 String deploymentJson = client.getJSON().serialize(runningDeployment);
 
                 PatchUtils.patch(
@@ -56,7 +83,7 @@ public class StrategyService {
                         () ->
                                 appsV1Api.patchNamespacedDeploymentCall(
                                         deployment.getName(),
-                                        namespace,
+                                        deployment.getNamespace(),
                                         new V1Patch(deploymentJson),
                                         null,
                                         null,

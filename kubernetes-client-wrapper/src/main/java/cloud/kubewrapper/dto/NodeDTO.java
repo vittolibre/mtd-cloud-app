@@ -12,6 +12,8 @@ public class NodeDTO implements Serializable {
 
     private String ipAddress;
 
-    private String label;
+    private Long id;
+
+    private String role;
 
 }
