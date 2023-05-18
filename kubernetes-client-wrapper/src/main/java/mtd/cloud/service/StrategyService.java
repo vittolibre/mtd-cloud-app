@@ -1,5 +1,9 @@
 package mtd.cloud.service;
 
+import io.fabric8.kubernetes.api.model.ServiceAccount;
+import io.fabric8.kubernetes.api.model.ServiceAccountBuilder;
+import io.fabric8.kubernetes.client.KubernetesClient;
+import io.fabric8.kubernetes.client.KubernetesClientBuilder;
 import mtd.cloud.entity.Deployment;
 import mtd.cloud.entity.Node;
 import mtd.cloud.entity.NodeLabel;
@@ -16,6 +20,7 @@ import io.kubernetes.client.util.PatchUtils;
 import jakarta.annotation.PostConstruct;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -41,6 +46,7 @@ public class StrategyService implements ApplicationRunner {
     private NodeLabelRepository nodeLabelRepository;
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        KubernetesClient kubernetesClient = new KubernetesClientBuilder().build();
         ApiClient client = Config.defaultClient();
         Configuration.setDefaultApiClient(client);
         AppsV1Api appsV1Api = new AppsV1Api(client);
@@ -64,9 +70,9 @@ public class StrategyService implements ApplicationRunner {
                 Map<String, String> map = runningDeployment.getSpec().getTemplate().getSpec().getNodeSelector();
 
                 Node node = nodeRepository.findRandomNode();
-                NodeLabel nameLabel  = nodeLabelRepository.findByIdNodeAndKey(node.getId(), "name");
+                NodeLabel nameLabel = nodeLabelRepository.findByIdNodeAndKey(node.getId(), "name");
 
-                if(map == null) {
+                if (map == null) {
                     map = new HashMap<>();
                 }
 
@@ -76,6 +82,17 @@ public class StrategyService implements ApplicationRunner {
                         .getTemplate()
                         .getSpec()
                         .setNodeSelector(map);
+
+                String generatedString = RandomStringUtils.randomAlphanumeric(5).toLowerCase();
+                String serviceAccountName = deployment.getName().replace("-", ".") + "." + generatedString;
+                ServiceAccount sa = new ServiceAccountBuilder().withNewMetadata().withName(serviceAccountName).endMetadata().build();
+                kubernetesClient.serviceAccounts().resource(sa).createOrReplace();
+
+                Thread.sleep(2000);
+
+                String oldServiceAccountName = runningDeployment.getSpec().getTemplate().getSpec().getServiceAccountName();
+
+                runningDeployment.getSpec().getTemplate().getSpec().setServiceAccountName(serviceAccountName);
 
                 String deploymentJson = client.getJSON().serialize(runningDeployment);
 
@@ -95,6 +112,9 @@ public class StrategyService implements ApplicationRunner {
                         V1Patch.PATCH_FORMAT_STRATEGIC_MERGE_PATCH,
                         client);
                 log.info("riavvio eseguito...");
+
+                ServiceAccount old = new ServiceAccountBuilder().withNewMetadata().withName(oldServiceAccountName).endMetadata().build();
+                kubernetesClient.serviceAccounts().resource(old).delete();
             }
 
             Thread.sleep(60000);

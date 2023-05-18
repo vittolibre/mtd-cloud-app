@@ -20,8 +20,13 @@
     <dependencies>
         <dependency>
             <groupId>io.kubernetes</groupId>
-            <artifactId>client-java</artifactId>
-            <version>15.0.1</version>
+            <artifactId>client-java-extended</artifactId>
+            <version>18.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.fabric8</groupId>
+            <artifactId>kubernetes-client</artifactId>
+            <version>6.6.2</version>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>

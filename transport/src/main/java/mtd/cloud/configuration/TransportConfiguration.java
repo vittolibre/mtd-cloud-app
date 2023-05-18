@@ -15,11 +15,6 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 public class TransportConfiguration implements WebSocketMessageBrokerConfigurer {
 
-    //@Bean(initMethod="subscribe")
-    MqttSubscriber MqttSubscriber(){
-        return new MqttSubscriber();
-    }
-
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker("/topic");
