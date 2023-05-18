@@ -20,12 +20,6 @@ public class TransportConfiguration implements WebSocketMessageBrokerConfigurer 
         return new MqttSubscriber();
     }
 
-   // @Bean(initMethod = "publish")
-//    @Bean
-    StompPublisher StompPublisher(){
-        return new StompPublisher();
-    }
-
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker("/topic");

@@ -17,6 +17,12 @@ import jakarta.annotation.PostConstruct;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -24,7 +30,8 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-public class StrategyService {
+@Component
+public class StrategyService implements ApplicationRunner {
 
     @Autowired
     private DeploymentRepository deploymentRepository;
@@ -32,10 +39,8 @@ public class StrategyService {
     private NodeRepository nodeRepository;
     @Autowired
     private NodeLabelRepository nodeLabelRepository;
-    @SneakyThrows
-    @PostConstruct
-    public void mtdStartup() {
-
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
         ApiClient client = Config.defaultClient();
         Configuration.setDefaultApiClient(client);
         AppsV1Api appsV1Api = new AppsV1Api(client);

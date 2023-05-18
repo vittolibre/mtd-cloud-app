@@ -1,27 +1,30 @@
 package mtd.cloud.stomp;
 
 import jakarta.annotation.PostConstruct;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import mtd.cloud.entity.Timeseries;
 import mtd.cloud.repository.TimeseriesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
 @Component
 @Slf4j
-public class StompPublisher {
+public class StompPublisher  implements ApplicationRunner {
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
     @Autowired
     private TimeseriesRepository timeseriesRepository;
-
-    @PostConstruct
-    public void publish() {
-
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
         Thread t = new Thread(() -> {
 
             log.info("start Stomp...");

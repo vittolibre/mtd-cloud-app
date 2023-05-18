@@ -11,8 +11,4 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackages = {"mtd.cloud"})
 public class KubeClientWrapperConfiguration {
 
-    //@Bean
-    StrategyService strategyService(){
-        return new StrategyService();
-    }
 }
