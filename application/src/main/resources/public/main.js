@@ -4517,7 +4517,7 @@ const routes = [
             },
         ],
     },
-    { path: '', redirectTo: 'pages', pathMatch: 'full' },
+    { path: '', redirectTo: 'pages/iot-dashboard', pathMatch: 'full' },
     { path: '**', redirectTo: 'pages' },
 ];
 const config = {
@@ -4655,6 +4655,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 const environment = {
     production: false,
+    appUrl: 'http://localhost:8080/'
 };
 
 

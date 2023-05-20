@@ -37,20 +37,19 @@
         <entry key="kubernetes-client-wrapper">
           <value>
             <ModuleSettings>
-              <option name="controllerPackageName" value="cloud.kubewrapper.service" />
+              <option name="controllerPackageName" value="mtd.cloud.controller" />
               <option name="controllerParentDirectory" value="$PROJECT_DIR$/kubernetes-client-wrapper/src/main/java" />
-              <option name="dtoPackageName" value="cloud.kubewrapper.dto" />
+              <option name="dtoPackageName" value="mtd.cloud.dto" />
               <option name="dtoParentDirectory" value="$PROJECT_DIR$/kubernetes-client-wrapper/src/main/java" />
-              <option name="entityPackageName" value="cloud.kubewrapper.entity" />
+              <option name="entityPackageName" value="mtd.cloud.entity" />
               <option name="entityParentDirectory" value="$PROJECT_DIR$/kubernetes-client-wrapper/src/main/java" />
-              <option name="generateEntity" value="false" />
               <option name="generateService" value="true" />
               <option name="mapperXmlParentDirectory" value="C:\Users\Vittorio\IdeaProjects\mtd-cloud-server\kubernetes-client-wrapper\src\main\resources" />
-              <option name="repositoryPackageName" value="cloud.kubewrapper.repository" />
+              <option name="repositoryPackageName" value="mtd.cloud.repository" />
               <option name="repositoryParentDirectory" value="$PROJECT_DIR$/kubernetes-client-wrapper/src/main/java" />
-              <option name="servicePackageName" value="cloud.kubewrapper.service" />
+              <option name="servicePackageName" value="mtd.cloud.service" />
               <option name="serviceParentDirectory" value="$PROJECT_DIR$/kubernetes-client-wrapper/src/main/java" />
-              <option name="voPackageName" value="cloud.kubewrapper.vo" />
+              <option name="voPackageName" value="mtd.cloud.vo" />
               <option name="voParentDirectory" value="$PROJECT_DIR$/kubernetes-client-wrapper/src/main/java" />
             </ModuleSettings>
           </value>
