@@ -28,17 +28,17 @@ public class DeploymentService {
         return bean.getName();
     }
 
-    public void delete(String id) {
+    public void delete(Long id) {
         deploymentRepository.deleteById(id);
     }
 
-    public void update(String id, DeploymentUpdateVO vO) {
-        Deployment bean = requireOne(id);
+    public void update(DeploymentUpdateVO vO) {
+        Deployment bean = requireOne(vO.getId());
         BeanUtils.copyProperties(vO, bean);
         deploymentRepository.save(bean);
     }
 
-    public DeploymentDTO getById(String id) {
+    public DeploymentDTO getById(Long id) {
         Deployment original = requireOne(id);
         return toDTO(original);
     }
@@ -53,7 +53,7 @@ public class DeploymentService {
         return bean;
     }
 
-    private Deployment requireOne(String id) {
+    private Deployment requireOne(Long id) {
         return deploymentRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Resource not found: " + id));
     }

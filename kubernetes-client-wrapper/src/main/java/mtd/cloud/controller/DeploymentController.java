@@ -28,18 +28,17 @@ public class DeploymentController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@Valid @NotNull @PathVariable("id") String id) {
+    public void delete(@Valid @NotNull @PathVariable("id") Long id) {
         deploymentService.delete(id);
     }
 
     @PutMapping("/{id}")
-    public void update(@Valid @NotNull @PathVariable("id") String id,
-                       @Valid @RequestBody DeploymentUpdateVO vO) {
-        deploymentService.update(id, vO);
+    public void update(@Valid @RequestBody DeploymentUpdateVO vO) {
+        deploymentService.update(vO);
     }
 
     @GetMapping("/{id}")
-    public DeploymentDTO getById(@Valid @NotNull @PathVariable("id") String id) {
+    public DeploymentDTO getById(@Valid @NotNull @PathVariable("id") Long id) {
         return deploymentService.getById(id);
     }
 

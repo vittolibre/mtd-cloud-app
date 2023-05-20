@@ -20,5 +20,6 @@ public class NodeVO implements Serializable {
     private Long id;
 
     private String role;
+    private Boolean available;
 
 }

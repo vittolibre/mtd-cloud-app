@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Validated
 @RestController
@@ -31,10 +32,9 @@ public class NodeController {
         nodeService.delete(id);
     }
 
-    @PutMapping("/{id}")
-    public void update(@Valid @NotNull @PathVariable("id") Long id,
-                       @Valid @RequestBody NodeUpdateVO vO) {
-        nodeService.update(id, vO);
+    @PutMapping
+    public void update(@Valid @RequestBody NodeUpdateVO vO) {
+        nodeService.update(vO);
     }
 
     @GetMapping("/{id}")
@@ -45,5 +45,10 @@ public class NodeController {
     @GetMapping
     public Page<NodeDTO> query(@Valid NodeQueryVO vO) {
         return nodeService.query(vO);
+    }
+
+    @GetMapping("/all")
+    public List<NodeDTO> findAll() {
+        return nodeService.findAll();
     }
 }

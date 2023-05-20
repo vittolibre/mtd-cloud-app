@@ -15,5 +15,6 @@ public class NodeDTO implements Serializable {
     private Long id;
 
     private String role;
+    private Boolean available;
 
 }

@@ -14,5 +14,6 @@ public class DeploymentQueryVO implements Serializable {
     private String strategy;
 
     private String namespace;
+    private Long id;
 
 }

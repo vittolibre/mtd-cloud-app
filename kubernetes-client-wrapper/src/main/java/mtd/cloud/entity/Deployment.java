@@ -1,11 +1,8 @@
 package mtd.cloud.entity;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import java.io.Serializable;
 
 @Data
@@ -16,11 +13,14 @@ public class Deployment implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "strategy", nullable = false)
-    private String strategy;
+    private Long strategy;
 
     @Column(name = "namespace")
     private String namespace;

@@ -15,4 +15,6 @@ public class StrategyQueryVO implements Serializable {
 
     private String scheduling;
 
+    private Long id;
+
 }

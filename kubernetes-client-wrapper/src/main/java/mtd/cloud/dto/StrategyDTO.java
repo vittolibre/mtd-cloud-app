@@ -14,4 +14,6 @@ public class StrategyDTO implements Serializable {
 
     private String scheduling;
 
+    private Long id;
+
 }

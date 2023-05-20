@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -30,8 +32,8 @@ public class NodeService {
         nodeRepository.deleteById(id.toString());
     }
 
-    public void update(Long id, NodeUpdateVO vO) {
-        Node bean = requireOne(id);
+    public void update(NodeUpdateVO vO) {
+        Node bean = requireOne(vO.getId());
         BeanUtils.copyProperties(vO, bean);
         nodeRepository.save(bean);
     }
@@ -54,5 +56,11 @@ public class NodeService {
     private Node requireOne(Long id) {
         return nodeRepository.findById(String.valueOf(id))
                 .orElseThrow(() -> new NoSuchElementException("Resource not found: " + id));
+    }
+
+    public List<NodeDTO> findAll() {
+        List<NodeDTO> list = new ArrayList<>();
+        nodeRepository.findAll().forEach(node -> list.add(toDTO(node)));
+        return list;
     }
 }

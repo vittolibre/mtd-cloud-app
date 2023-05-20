@@ -19,4 +19,7 @@ public class StrategyVO implements Serializable {
     @NotNull(message = "scheduling can not null")
     private String scheduling;
 
+    @NotNull(message = "id can not null")
+    private Long id;
+
 }

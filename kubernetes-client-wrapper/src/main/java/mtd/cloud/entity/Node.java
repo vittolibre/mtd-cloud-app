@@ -25,6 +25,9 @@ public class Node implements Serializable {
     @Column(name = "role")
     private String role;
 
+    @Column(name = "available")
+    private Boolean available;
+
 //    @OneToMany(mappedBy = "node")
 //    private List<NodeLabel> nodeLabels = new ArrayList<>();
 
