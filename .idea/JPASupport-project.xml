@@ -43,7 +43,10 @@
               <option name="dtoParentDirectory" value="$PROJECT_DIR$/kubernetes-client-wrapper/src/main/java" />
               <option name="entityPackageName" value="mtd.cloud.entity" />
               <option name="entityParentDirectory" value="$PROJECT_DIR$/kubernetes-client-wrapper/src/main/java" />
+              <option name="generateController" value="true" />
+              <option name="generateDTO" value="true" />
               <option name="generateService" value="true" />
+              <option name="generateVO" value="true" />
               <option name="mapperXmlParentDirectory" value="C:\Users\Vittorio\IdeaProjects\mtd-cloud-server\kubernetes-client-wrapper\src\main\resources" />
               <option name="repositoryPackageName" value="mtd.cloud.repository" />
               <option name="repositoryParentDirectory" value="$PROJECT_DIR$/kubernetes-client-wrapper/src/main/java" />
