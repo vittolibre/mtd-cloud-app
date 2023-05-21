@@ -4,12 +4,12 @@ import io.fabric8.kubernetes.api.model.ServiceAccount;
 import io.fabric8.kubernetes.api.model.ServiceAccountBuilder;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClientBuilder;
+import jakarta.persistence.EntityNotFoundException;
 import mtd.cloud.entity.Deployment;
 import mtd.cloud.entity.Node;
 import mtd.cloud.entity.NodeLabel;
-import mtd.cloud.repository.DeploymentRepository;
-import mtd.cloud.repository.NodeLabelRepository;
-import mtd.cloud.repository.NodeRepository;
+import mtd.cloud.entity.Strategy;
+import mtd.cloud.repository.*;
 import io.kubernetes.client.custom.V1Patch;
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.Configuration;
@@ -22,6 +22,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -32,12 +33,19 @@ import java.util.Map;
 //@Component
 public class MtdStrategyService implements ApplicationRunner {
 
+    public static final String IP_SHUFFLING_CONTAINER = "ip-shuffling-container";
+    public static final String SERVICE_ACCOUNT_SHUFFLING_CONTAINER = "service-account-shuffling-container";
     @Autowired
     private DeploymentRepository deploymentRepository;
     @Autowired
     private NodeRepository nodeRepository;
     @Autowired
     private NodeLabelRepository nodeLabelRepository;
+    @Autowired
+    private StrategyRepository strategyRepository;
+
+    @Autowired
+    private ParameterRepository parameterRepository;
     @Override
     public void run(ApplicationArguments args) throws Exception {
         KubernetesClient kubernetesClient = new KubernetesClientBuilder().build();
@@ -49,44 +57,20 @@ public class MtdStrategyService implements ApplicationRunner {
 
         while (true) {
 
+            Strategy ipShuffling = strategyRepository.findByName(IP_SHUFFLING_CONTAINER).orElseThrow(EntityNotFoundException::new);
+            Strategy saShuffling = strategyRepository.findByName(SERVICE_ACCOUNT_SHUFFLING_CONTAINER).orElseThrow(EntityNotFoundException::new);
+
             for (Deployment deployment : deployments) {
                 V1Deployment runningDeployment =
                         appsV1Api.readNamespacedDeployment(deployment.getName(), deployment.getNamespace(), null);
 
-                // Explicitly set "restartedAt" annotation with current date/time to trigger rollout when patch
-                // is applied
-                runningDeployment
-                        .getSpec()
-                        .getTemplate()
-                        .getMetadata()
-                        .putAnnotationsItem("kubectl.kubernetes.io/restartedAt", LocalDateTime.now().toString());
-
-                Map<String, String> map = runningDeployment.getSpec().getTemplate().getSpec().getNodeSelector();
-
-                Node node = nodeRepository.findRandomNode();
-                NodeLabel nameLabel = nodeLabelRepository.findByIdNodeAndKey(node.getId(), "name");
-
-                if (map == null) {
-                    map = new HashMap<>();
+                if(Boolean.TRUE == ipShuffling.getEnabled()){
+                    restartDeployment(runningDeployment);
+                    changeDeploymentNode(runningDeployment);
                 }
-
-                map.remove("name");
-                map.put("name", nameLabel.getValue());
-                runningDeployment.getSpec()
-                        .getTemplate()
-                        .getSpec()
-                        .setNodeSelector(map);
-
-                String generatedString = RandomStringUtils.randomAlphanumeric(5).toLowerCase();
-                String serviceAccountName = deployment.getName().replace("-", ".") + "." + generatedString;
-                ServiceAccount sa = new ServiceAccountBuilder().withNewMetadata().withName(serviceAccountName).endMetadata().build();
-                kubernetesClient.serviceAccounts().resource(sa).createOrReplace();
-
-                Thread.sleep(2000);
-
-                String oldServiceAccountName = runningDeployment.getSpec().getTemplate().getSpec().getServiceAccountName();
-
-                runningDeployment.getSpec().getTemplate().getSpec().setServiceAccountName(serviceAccountName);
+                if(Boolean.TRUE == saShuffling.getEnabled()){
+                    changeServiceAccount(kubernetesClient, deployment, runningDeployment);
+                }
 
                 String deploymentJson = client.getJSON().serialize(runningDeployment);
 
@@ -105,13 +89,48 @@ public class MtdStrategyService implements ApplicationRunner {
                                         null),
                         V1Patch.PATCH_FORMAT_STRATEGIC_MERGE_PATCH,
                         client);
-                log.info("riavvio eseguito...");
-
-                ServiceAccount old = new ServiceAccountBuilder().withNewMetadata().withName(oldServiceAccountName).endMetadata().build();
-                kubernetesClient.serviceAccounts().resource(old).delete();
+                log.info("Riavvio eseguito per il deployment {}", runningDeployment.getMetadata().getName());
             }
 
+            parameterRepository.findByKey("").orElseThrow(EntityNotFoundException::new);
             Thread.sleep(60000);
         }
+    }
+
+    private static void changeServiceAccount(KubernetesClient kubernetesClient, Deployment deployment, V1Deployment runningDeployment) throws InterruptedException {
+        String generatedString = RandomStringUtils.randomAlphanumeric(5).toLowerCase();
+        String serviceAccountName = deployment.getName().replace("-", ".") + "." + generatedString;
+        ServiceAccount sa = new ServiceAccountBuilder().withNewMetadata().withName(serviceAccountName).endMetadata().build();
+        kubernetesClient.serviceAccounts().resource(sa).createOrReplace();
+
+        Thread.sleep(1000);
+
+        String oldServiceAccountName = runningDeployment.getSpec().getTemplate().getSpec().getServiceAccountName();
+        runningDeployment.getSpec().getTemplate().getSpec().setServiceAccountName(serviceAccountName);
+        ServiceAccount old = new ServiceAccountBuilder().withNewMetadata().withName(oldServiceAccountName).endMetadata().build();
+        kubernetesClient.serviceAccounts().resource(old).delete();
+    }
+
+    private void changeDeploymentNode(V1Deployment runningDeployment) {
+        Map<String, String> map = runningDeployment.getSpec().getTemplate().getSpec().getNodeSelector();
+        Node node = nodeRepository.findRandomNode();
+        NodeLabel nameLabel = nodeLabelRepository.findByIdNodeAndKey(node.getId(), "name");
+        if (map == null) {
+            map = new HashMap<>();
+        }
+        map.remove("name");
+        map.put("name", nameLabel.getValue());
+        runningDeployment.getSpec()
+                .getTemplate()
+                .getSpec()
+                .setNodeSelector(map);
+    }
+
+    private static void restartDeployment(V1Deployment runningDeployment) {
+        runningDeployment
+                .getSpec()
+                .getTemplate()
+                .getMetadata()
+                .putAnnotationsItem("kubectl.kubernetes.io/restartedAt", LocalDateTime.now().toString());
     }
 }
