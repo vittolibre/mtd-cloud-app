@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Validated
 @RestController
@@ -34,5 +35,10 @@ public class ParameterController {
     @GetMapping
     public Page<ParameterDTO> query(@Valid ParameterQueryVO vO) {
         return parameterService.query(vO);
+    }
+
+    @GetMapping("/all")
+    public List<ParameterDTO> findAll() {
+        return parameterService.findAll();
     }
 }

@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "parameter")
+@Table(name = "parameter", schema = "cloud")
 public class Parameter implements Serializable {
 
     private static final long serialVersionUID = 1L;

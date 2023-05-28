@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -54,5 +56,11 @@ public class ParameterService {
     private Parameter requireOne(Long id) {
         return parameterRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Resource not found: " + id));
+    }
+
+    public List<ParameterDTO> findAll() {
+        List<ParameterDTO> list = new ArrayList<>();
+        parameterRepository.findAll().forEach(p -> list.add(toDTO(p)));
+        return list;
     }
 }

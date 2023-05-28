@@ -52,11 +52,11 @@
             <version>3.0.4</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>mtd.cloud</groupId>
-            <artifactId>core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>mtd.cloud</groupId>-->
+<!--            <artifactId>core</artifactId>-->
+<!--            <version>0.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
