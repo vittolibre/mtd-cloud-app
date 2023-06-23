@@ -28,7 +28,7 @@ import java.util.Base64;
 import java.util.Map;
 
 @Slf4j
-@Component
+//@Component
 public class MqttSubscriber {
     @Value("${mqtt.client.id}")
     private String id;

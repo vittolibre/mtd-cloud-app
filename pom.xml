@@ -21,7 +21,6 @@
         <module>application</module>
         <module>core</module>
         <module>transport</module>
-        <module>kubernetes-client-wrapper</module>
     </modules>
 
     <properties>

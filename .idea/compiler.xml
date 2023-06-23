@@ -10,9 +10,11 @@
         <module name="core" />
         <module name="transport" />
         <module name="application" />
-        <module name="kubernetes-client-wrapper" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="kubernetes-client-wrapper" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
