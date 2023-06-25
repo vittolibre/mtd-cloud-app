@@ -9,27 +9,28 @@
         <option value="" />
       </set>
     </option>
-    <option name="moduleName" value="kubernetes-client-wrapper" />
+    <option name="moduleName" value="core" />
     <option name="moduleNameToSettings">
       <map>
         <entry key="core">
           <value>
             <ModuleSettings>
-              <option name="controllerPackageName" value="mtdcloud.controller" />
+              <option name="controllerPackageName" value="mtd.cloud.controller" />
               <option name="controllerParentDirectory" value="$PROJECT_DIR$/core/src/main/java" />
-              <option name="dtoPackageName" value="mtdcloud.dto" />
+              <option name="dtoPackageName" value="mtd.cloud.dto" />
               <option name="dtoParentDirectory" value="$PROJECT_DIR$/core/src/main/java" />
-              <option name="entityPackageName" value="mtdcloud.entity" />
+              <option name="entityPackageName" value="mtd.cloud.entity" />
               <option name="entityParentDirectory" value="$PROJECT_DIR$/core/src/main/java" />
+              <option name="generateController" value="true" />
               <option name="generateDTO" value="true" />
-              <option name="generateRepository" value="false" />
+              <option name="generateService" value="true" />
               <option name="generateVO" value="true" />
-              <option name="mapperXmlParentDirectory" value="C:\Users\Vittorio\IdeaProjects\mtd-cloud-server\core\src\main\resources" />
-              <option name="repositoryPackageName" value="mtdcloud.repository" />
+              <option name="mapperXmlParentDirectory" value="C:\Users\Vittorio\Documents\progetti GIT\mtd-cloud-app\core\src\main\resources" />
+              <option name="repositoryPackageName" value="mtd.cloud.repository" />
               <option name="repositoryParentDirectory" value="$PROJECT_DIR$/core/src/main/java" />
-              <option name="servicePackageName" value="mtdcloud.service" />
+              <option name="servicePackageName" value="mtd.cloud.service" />
               <option name="serviceParentDirectory" value="$PROJECT_DIR$/core/src/main/java" />
-              <option name="voPackageName" value="mtdcloud.vo" />
+              <option name="voPackageName" value="mtd.cloud.vo" />
               <option name="voParentDirectory" value="$PROJECT_DIR$/core/src/main/java" />
             </ModuleSettings>
           </value>
@@ -59,7 +60,25 @@
         </entry>
         <entry key="mtd-cloud-server">
           <value>
-            <ModuleSettings />
+            <ModuleSettings>
+              <option name="controllerPackageName" value="mtd.cloud.controller" />
+              <option name="controllerParentDirectory" value="C:\Users\Vittorio\Documents\progetti GIT\mtd-cloud-app\src\main\java" />
+              <option name="dtoPackageName" value="mtd.cloud.dto" />
+              <option name="dtoParentDirectory" value="C:\Users\Vittorio\Documents\progetti GIT\mtd-cloud-app\src\main\java" />
+              <option name="entityPackageName" value="mtd.cloud.entity" />
+              <option name="entityParentDirectory" value="C:\Users\Vittorio\Documents\progetti GIT\mtd-cloud-app\src\main\java" />
+              <option name="generateController" value="true" />
+              <option name="generateDTO" value="true" />
+              <option name="generateService" value="true" />
+              <option name="generateVO" value="true" />
+              <option name="mapperXmlParentDirectory" value="C:\Users\Vittorio\Documents\progetti GIT\mtd-cloud-app\src\main\resources" />
+              <option name="repositoryPackageName" value="mtd.cloud.repository" />
+              <option name="repositoryParentDirectory" value="C:\Users\Vittorio\Documents\progetti GIT\mtd-cloud-app\src\main\java" />
+              <option name="servicePackageName" value="mtd.cloud.service" />
+              <option name="serviceParentDirectory" value="C:\Users\Vittorio\Documents\progetti GIT\mtd-cloud-app\src\main\java" />
+              <option name="voPackageName" value="mtd.cloud.vo" />
+              <option name="voParentDirectory" value="C:\Users\Vittorio\Documents\progetti GIT\mtd-cloud-app\src\main\java" />
+            </ModuleSettings>
           </value>
         </entry>
       </map>
