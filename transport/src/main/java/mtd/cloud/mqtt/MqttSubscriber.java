@@ -102,7 +102,7 @@ public class MqttSubscriber {
                     }
                     Map<String, Object> map = JsonParserFactory.getJsonParser().parseMap(decrypted);
                     Timeseries timeseries =  new Timeseries();
-                    timeseries.setIdGateway(map.get("id_gateway").toString());
+                    timeseries.setEdgeHostname(map.get("hostname").toString());
                     timeseries.setIdDevice(map.get("id_device").toString());
                     timeseries.setDeviceAttribute(map.get("device_attribute").toString());
                     timeseries.setDeviceAttributeType(map.get("device_attribute_type").toString());

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Validated
 @RestController
@@ -45,5 +46,10 @@ public class DeviceController {
     @GetMapping
     public Page<DeviceDTO> query(@Valid DeviceQueryVO vO) {
         return deviceService.query(vO);
+    }
+
+    @GetMapping("/all")
+    public List<DeviceDTO> findAll() {
+        return deviceService.findAll();
     }
 }

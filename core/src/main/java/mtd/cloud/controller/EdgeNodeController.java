@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Validated
 @RestController
@@ -45,5 +46,10 @@ public class EdgeNodeController {
     @GetMapping
     public Page<EdgeNodeDTO> query(@Valid EdgeNodeQueryVO vO) {
         return edgeNodeService.query(vO);
+    }
+
+    @GetMapping("/all")
+    public List<EdgeNodeDTO> findAll() {
+        return edgeNodeService.findAll();
     }
 }

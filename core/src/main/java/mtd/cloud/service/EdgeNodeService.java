@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -54,5 +56,11 @@ public class EdgeNodeService {
     private EdgeNode requireOne(Long id) {
         return edgeNodeRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Resource not found: " + id));
+    }
+
+    public List<EdgeNodeDTO> findAll() {
+        List<EdgeNodeDTO> list = new ArrayList<>();
+        edgeNodeRepository.findAll().forEach(node -> list.add(toDTO(node)));
+        return list;
     }
 }

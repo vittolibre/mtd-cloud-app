@@ -10,8 +10,8 @@ import java.util.Date;
 @Table(name = "timeseries", schema = "cloud")
 public class Timeseries {
 
-    @Column(name = "id_gateway", nullable = false)
-    private String idGateway;
+    @Column(name = "edge_node_hostname", nullable = false)
+    private String edgeHostname;
 
     @Column(name = "id_device", nullable = false)
     private String idDevice;

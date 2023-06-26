@@ -23,7 +23,7 @@ public class TimeseriesService {
         Timeseries bean = new Timeseries();
         BeanUtils.copyProperties(vO, bean);
         bean = timeseriesRepository.save(bean);
-        return bean.getIdGateway();
+        return bean.getEdgeHostname();
     }
 
     public void delete(String id) {

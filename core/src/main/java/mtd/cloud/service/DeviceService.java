@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -54,5 +56,11 @@ public class DeviceService {
     private Device requireOne(Long id) {
         return deviceRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Resource not found: " + id));
+    }
+
+    public List<DeviceDTO> findAll() {
+        List<DeviceDTO> list = new ArrayList<>();
+        deviceRepository.findAll().forEach(device -> list.add(toDTO(device)));
+        return list;
     }
 }

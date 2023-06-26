@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 public class TimeseriesVO {
-    private String idGateway;
+    private String edgeHostname;
 
     private String idDevice;
 
