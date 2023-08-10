@@ -1,2 +1,2 @@
 # mtd-cloud-app
-Moving Target Defence Cloud Application
+Moving Target Defence Demo Cloud Application
